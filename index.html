@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link type="text/css" media="all" href="assets/css/main.css" rel="stylesheet"/>
+  <link type="text/css" media="all" href="assets/css/responsive.css" rel="stylesheet"/>
+  <title>NPC Creator</title>
+  <style>
+ 
+  </style>
+</head>
+<body>
+    <div class="drag-region" id="dragRegion"></div>
+    
+    <div class="titlebar-buttons">
+      <div id="disconnectButton" class="titlebar-button hidden"></div>
+      <div id="minimizeButton" class="titlebar-button"></div>
+      <div id="closeButton" class="titlebar-button"></div>
+    </div>
+    
+  <!-- Inputs de conexão -->
+  <div id="connection-form">
+    <div id="logo"></div>
+    <h2>Conexão com Banco de Dados</h2>
+    
+    <div id="host-container"><div id="host-label">Host:</div><input id="host" placeholder="Host" /></div><br>
+    <div id="host-container"><div id="host-label">Usuário:</div><input id="username" placeholder="Username" /></div><br>
+    <div id="host-container"><div id="host-label">Senha:</div><input id="password" type="password" placeholder="Password" /></div><br>
+    <div id="host-container"><div id="host-label">Database:</div><input id="database" placeholder="Database" /></div><br>
+    
+    <div id="connect-btn">Conectar</div>
+    <div id="db-error-message" class="error-db-message bg-red">Não foi possível conectar ao banco de dados!</div>
+  </div>
+  <!-- Inputs para criação de NPC -->
+   <div class="sidebar hidden" id="sidebar">
+    <div class="sidebar-links">
+      <div id="logo" style="margin-top: 20px;"></div><br>
+      <div id="update-message" class="bg-green hidden"></div><br>
+      <div id="home-session-dropdown" class="dropdown-toggle">Home</div><div class="dropdown"></div>
+      <div class="dropdown-toggle">NPC</div>
+      <div class="dropdown">
+        <div id="create-npc-dropdown" class="dropdown-pages">Criar NPC</div>
+        <div id="buscar-npc-dropdown" class="dropdown-pages" href="#">Buscar NPCs</div>
+      </div>
+      <div class="dropdown-toggle">QUESTS</div>
+      <div class="dropdown">
+        <div class="dropdown-pages">Criar Quests</div>
+        <div class="dropdown-pages">Buscar Quests</div>
+      </div>
+  </div>
+      <footer class="footer">
+      <p>&copy; 2024 AzerothForge <br> By: Valber</p>
+    </footer>
+</div>
+  <!-- Inputs para criação de NPC -->
+  <div id="main-container">
+
+    <div id="home-session" class="hidden">
+      <div id="">Boas vindas ao AzerothForge</div>
+    </div>
+    
+    <!-- Sessão para criação de NPC -->
+    <div id="create-npc-session" class="hidden">
+        <h2>Criar NPC</h2>
+        <input class="npc-input" id="entry" placeholder="Entry" />
+        <input class="npc-input" id="name" placeholder="Name" />
+        <input class="npc-input" id="subname" placeholder="Subname" />
+        <input class="npc-input" id="faction" placeholder="Faction" />
+        <input class="npc-input" id="minlevel" placeholder="Min Level" type="number" />
+        <input class="npc-input" id="maxlevel" placeholder="Max Level" type="number" />
+        <input class="npc-input" id="npcflag" placeholder="NPC Flag" type="number" />
+        <h3>Configurações de Modelo</h3>
+
+        <input class="npc-input" id="creature-display-id" placeholder="CreatureDisplayID" type="number" />
+        <input class="npc-input" id="display-scale" placeholder="DisplayScale (Padrão: 1)" type="number" value="1" />
+        <input class="npc-input" id="probability" placeholder="Probability (Padrão: 1)" type="number" value="1" />
+        <button id="create-npc-btn" disabled>Criar NPC</button>
+        <div id="entry-status-container"><span id="entry-status"></span></div>
+        </div>
+        <div id="success-message" class="message bg-green">NPC criado com sucesso!</div>
+
+    <!-- Sessão para busca de NPC -->       
+    <div id="success-edit-npc-message" class="message bg-green">NPC editado com sucesso!</div>
+    <div id="buscar-npc-session" class="hidden">
+      <div id="search-bar-container">
+      <input type="text" id="entry-input" placeholder="Entry" />
+      <input type="text" id="name-input" placeholder="Nome" />
+      <input type="text" id="subname-input" placeholder="Subnome" />
+      <button id="buscar-npc-btn" type="submit">Buscar</button>
+      </div>
+      <div class="table-container">
+      <table>
+        <thead>
+            <tr>
+                <th>Entry</th>
+                <th>Name</th>
+                <th>Subname</th>
+            </tr>
+        </thead>
+        <tbody id="resultados">
+        </tbody>
+    </table>
+    </div> 
+      <div id="modal-editar">
+        <h2>Editor de NPC</h2>
+        <h3>Edição Base</h3>
+        <section>       
+        <input type="hidden" id="npc-entry" />
+        <div id="modal-input-container"><div id="modal-input-label">Name:</div><input type="text" id="npc-name" placeholder="Nome" /></div>
+        <div id="modal-input-container"><div id="modal-input-label">Subname:</div><input type="text" id="npc-subname" placeholder="Subnome" /></div>
+        <div id="modal-input-container"><div id="modal-input-label">Minlevel:</div><input type="text" id="npc-minlevel" placeholder="minlevel" /></div>
+        <div id="modal-input-container"><div id="modal-input-label">Maxlevel:</div><input type="text" id="npc-maxlevel" placeholder="maxlevel" /></div>
+        <div id="modal-input-container"><div id="modal-input-label">Faction:</div><input type="text" id="npc-faction" placeholder="faction" /></div>
+        <div id="modal-input-container"><div id="modal-input-label">Npcflag:</div><input type="text" id="npc-npcflag" placeholder="npcflag" /></div>
+      </section><br>
+      <h3>Edição de Modelo</h3>
+      <section>
+        <div id="modal-input-container"><div id="modal-input-label">CreatureID:</div><input class="disabled" type="text" id="npc-CreatureID" placeholder="CreatureID" disabled /></div>
+        <div id="modal-input-container"><div id="modal-input-label">DisplayID:</div><input type="text" id="npc-CreatureDisplayID" placeholder="CreatureDisplayID" /></div>
+        <div id="modal-input-container"><div id="modal-input-label">DisplayScale:</div><input type="text" id="npc-DisplayScale" placeholder="DisplayScale" /></div>
+        <div id="modal-input-container"><div id="modal-input-label">Probability:</div><input type="text" id="npc-Probability" placeholder="Probability" /></div>
+      </section>
+      <br><br>
+        <button id="salvar-edicao-btn">Salvar</button>
+        <button id="fechar-modal-btn">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/sidebar.js"></script>
+  <script src="renderer.js"></script>
+</body>
+<script>
+    window.electron; 
+    document.getElementById('minimizeButton').addEventListener('click', () => {
+      window.electron.minimizeWindow();
+    });
+    document.getElementById('closeButton').addEventListener('click', () => {
+      window.electron.closeWindow();
+    });
+    document.getElementById('maximizeButton').addEventListener('click', () => {
+      window.electron.maximizeWindow();
+    });
+    
+  </script>
+</html>

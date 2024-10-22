@@ -1,0 +1,41 @@
+{
+  "name": "npc-creator-tool",
+  "version": "1.0.0",
+  "main": "src/main.js",
+  "bin": {
+    "seu-aplicativo": "main.js"
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --x64 --publish never"
+  },
+  "build": {
+    "appId": "azerothlegends.wowclient",
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "icon": "assets/icon.png"
+    },
+    "directories": {
+      "buildResources": "build"
+    },
+    "files": [
+      "**/*"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "electron-store": "^10.0.0",
+    "mysql2": "^3.11.3",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "electron": "^33.0.1",
+    "electron-builder": "^25.1.8",
+    "electron-reload": "^2.0.0-alpha.1"
+  }
+}

@@ -1,0 +1,81 @@
+/* Janela Maximizada */
+@media (min-width: 1450px) {
+#main-container {
+    width: 85%;
+}
+.sidebar-links {
+    height: 86vh;
+  }
+}
+/* Janela Minimizada */
+@media (max-width: 1300px) {
+    #main-container {
+        width: 77%;
+    }
+    .sidebar-links {
+        height: 80vh;
+      }
+    }
+    .dropdown {
+        display: none; /* Esconde o dropdown por padrão */
+        position: relative; /* Para alinhamento */
+        
+      }
+      
+      /* Exibe o dropdown quando o item é ativo */
+      .dropdown-toggle.active + .dropdown {
+        display: block; /* Exibe o dropdown quando ativo */
+        color: #00bcd4;
+      }
+      .dropdown-toggle {
+        color: white;
+        text-align: center;
+        background-color:rgba(0, 0, 0, 0.2);
+        padding-top: 8px;
+        padding-bottom: 8px;
+        margin-bottom: 5px;
+        cursor: pointer;
+      }
+      .dropdown-toggle:hover {
+        
+      }
+      .dropdown-pages {
+        color: white;
+        width: 85%;
+        margin: 0 auto;
+        text-align: center;
+        background-color:rgba(0, 0, 0, 0.3);
+        padding-top: 8px;
+        padding-bottom: 8px;
+        margin-bottom: 5px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        cursor: pointer;
+      }
+      .dropdown-pages:hover {
+        background-color:rgba(0, 0, 0, 0.5);
+      }
+      /* Estiliza a barra de rolagem para navegadores baseados em WebKit (Chrome, Electron, Edge) */
+::-webkit-scrollbar {
+  width: 12px; /* Largura da barra */
+  height: 12px; /* Altura da barra */
+}
+
+/* Trilho da barra de rolagem */
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1); /* Fundo leve e transparente */
+  border-radius: 10px;
+}
+
+/* Thumb (parte arrastável) da barra de rolagem */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 0, 0, 0.7); /* Vermelho opaco */
+  border-radius: 10px; /* Canto arredondado */
+  border: 2px solid transparent; /* Espaço interno */
+  background-clip: padding-box; /* Evita sobreposição da borda */
+}
+
+/* Hover: muda a cor do thumb ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 0, 0, 0.9); /* Vermelho mais forte ao passar o mouse */
+}
