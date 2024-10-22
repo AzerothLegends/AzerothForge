@@ -1,4 +1,4 @@
-name: Build Windows Electron App
+name: Windows Build
 
 on:
   push:
