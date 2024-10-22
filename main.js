@@ -1,7 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const fs = require('fs');
 const path = require('path');
-const http = require('http');
+const http = require('https');
 
 // Define a versão atual
 const currentVersion = 1; // Por exemplo, a versão atual é 1
@@ -78,7 +78,7 @@ function compareVersions(remoteVersion, localVersion) {
 
 // Handler para verificar a versão
 ipcMain.handle('verificar-atualizacao', async () => {
-  const url = 'http://127.0.0.1/update.txt'; // URL do arquivo de versão
+  const url = 'https://raw.githubusercontent.com/AzerothLegends/AzerothForge/refs/heads/main/assets/js/update.txt'; // URL do arquivo de versão
   console.log('Buscando a versão do update.txt em:', url);
 
   try {
