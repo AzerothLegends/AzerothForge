@@ -1,7 +1,7 @@
 {
   "name": "npc-creator-tool",
   "version": "1.0.0",
-  "main": "src/main.js",
+  "main": "main.js",
   "bin": {
     "seu-aplicativo": "main.js"
   },
