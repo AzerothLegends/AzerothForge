@@ -125,7 +125,6 @@ margin-top: 4px;
 position: absolute;
 top: 0;
 right: 0;
-display: flex;
 height: 30px;
 width: 10%;
 }
@@ -276,7 +275,6 @@ thead th {
   }
 th, td {
     padding: 12px;
-    text-align: left;
     border: 1px solid #444; /* Borda das células */
     background-color:rgba(30, 30, 47, 0.4);
     text-align: center;
