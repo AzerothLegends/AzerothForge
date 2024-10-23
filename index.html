@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link type="text/css" media="all" href="assets/css/main.css" rel="stylesheet"/>
   <link type="text/css" media="all" href="assets/css/responsive.css" rel="stylesheet"/>
-  <title>NPC Creator</title>
+  <title>AzerothForge</title>
   <style>
  
   </style>
@@ -14,7 +14,6 @@
     <div class="drag-region" id="dragRegion"></div>
     
     <div class="titlebar-buttons">
-      <div id="disconnectButton" class="titlebar-button hidden"></div>
       <div id="minimizeButton" class="titlebar-button"></div>
       <div id="closeButton" class="titlebar-button"></div>
     </div>
@@ -22,12 +21,12 @@
   <!-- Inputs de conexão -->
   <div id="connection-form">
     <div id="logo"></div>
-    <h2 style="color: white;">Azeroth Forge</h2>
+    <h2 style="color: white;">AzerothForge</h2>
     
     <div id="host-container"><div id="host-label">Host:</div><input id="host" placeholder="Host" /></div><br>
     <div id="host-container"><div id="host-label">Usuário:</div><input id="username" placeholder="Username" /></div><br>
     <div id="host-container"><div id="host-label">Senha:</div><input id="password" type="password" placeholder="Password" /></div><br>
-    <div id="host-container"><div id="host-label">Database:</div><input id="database" placeholder="Database" /></div><br>
+    <div id="host-container"><div id="host-label">World DB:</div><input id="database" placeholder="acore_world" /></div><br>
     
     <div id="connect-btn">Conectar</div>
     <div id="db-error-message" class="error-db-message bg-red">Não foi possível conectar ao banco de dados!</div>
@@ -55,11 +54,32 @@
 </div>
   <!-- Inputs para criação de NPC -->
   <div id="main-container">
-
-    <div id="home-session" class="hidden">
-      <div id="">Boas vindas ao AzerothForge</div>
-    </div>
-    
+    <div id="home-session" class="hidden"><br><br><br>
+      <div id=""><span>Bem-vindo ao AzerothForge</span><br><br>
+        <span>Você sempre pode encontrar a versão mais recente do AzerothForge na <a href="#" id="release-link">página de lançamentos.</a></span><br><br>
+        <span>Você pode reportar quaisquer bugs ou sugestões usando o <a href="#" id="repo-link">repositório oficial.</a><br><br> Se você gostou do AzerothForge, não esqueça de nos dar uma ⭐ no GitHub!</span><br><br>
+        <span>O AzerothForge é um software gratuito e de código aberto que está sendo desenvolvido em meu tempo livre, mas caso queira, você pode me apoiar com <a href="#" id="6c62058ab695b3d3a521fc9e92c6ee01">uma doação</a></span><span style="color: red;"> ❤</span><br><br>
+        <span>Espero que você goste de usar este software e não se esqueça de contribuir com a comunidade compartilhando seu código</span><br>
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <div id="f5c986942e09682bb4866bda70730ebc">
+            <h2 id="F800B204"></h2>
+            <h3 id="D41D8CD9"></h3>
+            <div id="A34095e673f78539ea65fe2535b3b2620"></div>
+            <button id="close-modal">Fechar</button>
+        </div>
+        <table class="transparent-table" style="margin-top: 60px;">
+          <tbody>
+              <tr>
+                  <td>Versão AzerothForge:</td>
+                  <td id="app-version">Carregando...</td>
+              </tr>
+              <tr>
+                  <td>Versão Node:</td>
+                  <td>20.12.1</td>
+              </tr>
+          </tbody>
+      </table>
+    </div></div>
     <!-- Sessão para criação de NPC -->
     <div id="create-npc-session" class="hidden">
         <h2>Criar NPC</h2>
@@ -142,6 +162,6 @@
     document.getElementById('maximizeButton').addEventListener('click', () => {
       window.electron.maximizeWindow();
     });
-    
+
   </script>
 </html>

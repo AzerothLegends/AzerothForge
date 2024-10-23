@@ -1,6 +1,11 @@
-const { contextBridge, ipcRenderer } = require('electron');
+const { contextBridge, ipcRenderer, shell } = require('electron');
 
 contextBridge.exposeInMainWorld('electron', {
+  shell: {openExternal: (url) => shell.openExternal(url)},
+  onAppVersion: (callback) => {
+    console.log('Callback registrado para versão do app'); // LOG de conferência
+    ipcRenderer.on('app-version', (event, version) => callback(version));
+},
   buscarNPCs: (filtros) => ipcRenderer.invoke('buscar-npcs', filtros),
   editarNPC: (npc) => ipcRenderer.invoke('editar-npc', npc),
   minimizeWindow: () => ipcRenderer.send('minimize-window'),

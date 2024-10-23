@@ -9,7 +9,10 @@ const buscarNpcBtn = document.getElementById('buscar-npc-btn');
 const successMessage = document.getElementById('success-message');
 const successEditNpcMessage = document.getElementById('success-edit-npc-message');
 const dbErrorMessage = document.getElementById('db-error-message');
-
+const A6c62058ab695b3d3a521fc9e92c6ee01 = document.getElementById('6c62058ab695b3d3a521fc9e92c6ee01');
+const donateModal = document.getElementById('f5c986942e09682bb4866bda70730ebc');
+const modalOverlay = document.getElementById('modal-overlay');
+const closeModalButton = document.getElementById('close-modal');
 
 // Função para carregar credenciais do cache
 async function carregarCredenciais() {
@@ -28,9 +31,15 @@ async function carregarCredenciais() {
 
 // Evento onload para verificar atualizações e carregar credenciais
 window.onload = async () => {
+  console.log('DOM carregado'); // Verificar se o DOM está sendo carregado
+
+  window.electron.onAppVersion((version) => {
+      console.log('Versão recebida:', version); // LOG de conferência
+      document.getElementById('app-version').innerText = version;
+  });
   await Promise.all([carregarCredenciais()]);
   const updateInfo = await window.electron.invoke('verificar-atualizacao');
-  
+
   if (updateInfo.updateAvailable) {
     // Exibe a mensagem de atualização
     document.getElementById('update-message').innerText = `Nova atualização disponível`;
@@ -52,10 +61,10 @@ connectBtn.addEventListener('click', () => {
 // Exibir o formulário de NPC após conexão bem-sucedida e ocultar o formulário de conexão
 window.electron.on('db-connected', () => {
   console.log('Conexão ao banco de dados bem-sucedida!');
-  connectionForm.classList.add('hidden');  // Oculta os inputs de conexão
-  maincontainer.classList.remove('hidden');  // Exibe os inputs de NPC
+  connectionForm.classList.add('hidden'); 
+  maincontainer.classList.remove('hidden');  
   sidebar.classList.remove('hidden');
-  disconnectButton.classList.remove('hidden');
+  homesession.classList.remove('hidden'); 
 });
 
 window.electron.on('db-connected-false', () => {
@@ -68,7 +77,6 @@ window.electron.on('db-connected-false', () => {
     setTimeout(() => (dbErrorMessage.style.display = 'none'), 500);
   }, 3000);
 });
-
 
 // Verificar se o "entry" já está em uso
 entryInput.addEventListener('input', async (e) => {
@@ -220,4 +228,54 @@ document.getElementById('salvar-edicao-btn').addEventListener('click', async () 
     console.error('Erro ao editar NPC:', error);
     alert('Erro ao atualizar NPC.');
   }
+});
+//Modal do painel
+    function OpenDonateModal() {
+      donateModal.style.display = 'block'; 
+      document.getElementById('D41D8CD9').innerText = D41D8CD9;
+      document.getElementById('F800B204').innerText = F800B204;
+      document.getElementById('A34095e673f78539ea65fe2535b3b2620').innerHTML = AB221024;
+      modalOverlay.style.display = 'block';
+  }
+
+  function CloseDonateModal() {
+      donateModal.style.display = 'none';
+      modalOverlay.style.display = 'none';
+  }
+  A6c62058ab695b3d3a521fc9e92c6ee01.addEventListener('click', OpenDonateModal);
+  closeModalButton.addEventListener('click', CloseDonateModal);
+  // Fechar modal ao clicar fora dele
+  modalOverlay.addEventListener('click', CloseDonateModal);
+
+  const b4698d02 = 
+  "ht" + "t" + "ps:" + "//" + "i" + ".i" + "mg" + "ur" + ".c" + "om" + 
+  "/R" + "Ic" + "iao" + "M" + ".p" + "ng";
+
+    const AB221024 = 
+    `<p>` + `Pi` + `x:` + `</` + `p>` +
+    `<im` + `g ` + `sr` + `c=` + 
+    `"${b4698d02}"` + `al` + `t=` + `"Im` + 
+    `ag` + `em` + ` d` + `e ` + `Do` + `aç` + 
+    `ão"` + ` st` + `yl` + `e="` + `ma` + `x-w` + 
+    `idt` + `h: ` + `10` + `0%;` + ` he` + `igh` + 
+    `t: a` + `ut` + `o;">`;
+
+
+  const D41D8CD9 = 
+  "Ag" + "ra" + "de" + "ce" + "mo" + "s " +
+  "su" + "a " + "ge" + "ne" + "ro" + "si" + "da" + "de!";
+
+  const F800B204 = 
+  "F" + "a" + "ç" + 
+  "a " + "u" + "m" + 
+  "a" + " D" + "o" + 
+  "aç" + "ã" + "o";
+//Links Externos
+document.getElementById('release-link').addEventListener('click', (event) => {
+  event.preventDefault(); // Impede o comportamento padrão do link
+  window.electron.shell.openExternal('https://github.com/AzerothLegends/AzerothForge/releases');
+});
+document.getElementById('repo-link').addEventListener('click', (event) => {
+  event.preventDefault(); // Impede o comportamento padrão do link
+  window.electron.shell.openExternal('https://github.com/AzerothLegends/AzerothForge');
 });

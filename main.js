@@ -4,8 +4,9 @@ const path = require('path');
 const http = require('https');
 
 // Define a versão atual
-const currentVersion = 1; // Por exemplo, a versão atual é 1
-const updateFilePath = path.join(app.getPath('userData'), 'update.txt'); // Exemplo de caminho seguro
+const appVersion = '1.0.0';
+const currentVersion = 1; // Versão para o verificador de atualização
+const updateFilePath = path.join(app.getPath('userData'), 'update.txt');
 
 
 // Dynamic import do 'electron-store'
@@ -42,6 +43,11 @@ app.whenReady().then(() => {
 
   mainWindow.loadFile('index.html');
 
+    // Enviar a versão assim que o conteúdo terminar de carregar
+    mainWindow.webContents.on('did-finish-load', () => {
+      console.log('Enviando versão:', appVersion); // LOG para conferir
+      mainWindow.webContents.send('app-version', appVersion);
+  });
   // Função para baixar o arquivo de versão
   async function downloadFile(url, dest) {
     return new Promise((resolve, reject) => {
@@ -70,7 +76,6 @@ app.whenReady().then(() => {
       });
     });
   }
-
 // Função para comparar versões
 function compareVersions(remoteVersion, localVersion) {
   return remoteVersion > localVersion;
