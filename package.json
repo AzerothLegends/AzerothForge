@@ -7,7 +7,8 @@
   },
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --win --x64 --publish never"
+    "build:win": "electron-builder --win --x64 --publish never",
+    "build:linux": "electron-builder --linux --x64 --publish never"
   },
   "build": {
     "appId": "azerothlegends.wowclient",
@@ -30,8 +31,7 @@
   "description": "",
   "dependencies": {
     "electron-store": "^10.0.0",
-    "mysql2": "^3.11.3",
-    "node-fetch": "^2.7.0"
+    "mysql2": "^3.11.3"
   },
   "devDependencies": {
     "electron": "^33.0.1",
