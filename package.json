@@ -21,7 +21,8 @@
     },
     "linux": {
       "icon": "assets/icon.png",
-      "category": "Utility"
+      "category": "Utility",
+      "maintainer": "Valber <valberlimabr@gmail.com>"
     },
     "directories": {
       "buildResources": "build"
@@ -31,9 +32,13 @@
     ]
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "Valber",
+    "email": "valberlimabr@gmail.com"
+  },
   "license": "ISC",
-  "description": "",
+  "description": "Editor de Banco de Dados para o AzerothCore.",
+  "homepage": "https://github.com/AzerothLegends/AzerothForge",
   "dependencies": {
     "electron-store": "^10.0.0",
     "mysql2": "^3.11.3"
