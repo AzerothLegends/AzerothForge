@@ -8,8 +8,8 @@
   "scripts": {
     "start": "electron .",
     "build:win": "electron-builder --win --x64 --publish never",
-    "build:linux": "electron-builder --linux --x64 --publish never",
-     "build:ubuntu": "electron-builder --linux deb --x64 --publish never"
+    "build:linux": "electron-builder --linux appimage --x64 --publish never",
+    "build:ubuntu": "electron-builder --linux deb --x64 --publish never"
   },
   "build": {
     "appId": "azerothlegends.azerothforge",
