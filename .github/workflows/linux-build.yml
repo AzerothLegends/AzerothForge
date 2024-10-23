@@ -1,0 +1,38 @@
+name: Linux Build
+
+on:
+  push:
+    branches:
+      - main  # Dispara o workflow ao fazer push na branch 'main'
+  pull_request:
+    branches:
+      - main  # Também dispara em PRs para a branch 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Usa máquina Ubuntu para build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4  # Atualizado para v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4  # Atualizado para v4
+        with:
+          node-version: '20.12.1'  # Define a versão exata do Node.js
+          check-latest: true  # Garante a versão mais recente dentro do patch
+
+      - name: Install dependencies
+        run: npm install  # Instala todas as dependências
+
+      - name: Build application
+        run: npm run build:linux  # Realiza o build com electron-builder para Linux
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4  # Atualizado para v4
+        with:
+          name: AzerothForge-build
+          path: dist/*.AppImage  # Faz upload do executável gerado (ajuste conforme necessário)
+
+      - name: Verify Node.js version
+        run: node -v  # Verifica e exibe a versão instalada do Node.js
