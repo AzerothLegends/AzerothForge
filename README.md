@@ -1,5 +1,6 @@
 # AzerothForge
 [![Windows Build](https://github.com/AzerothLegends/AzerothForge/actions/workflows/npm-publish-github-packages.yml/badge.svg)](https://github.com/AzerothLegends/AzerothForge/actions/workflows/npm-publish-github-packages.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![CodeFactor](https://www.codefactor.io/repository/github/azerothlegends/azerothforge/badge)](https://www.codefactor.io/repository/github/azerothlegends/azerothforge)
 
 Com o AzerothForge você não precisa saber a linguagem SQL para alterar o conteúdo: ele executará as consultas SQL automaticamente para você. 
