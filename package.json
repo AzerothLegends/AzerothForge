@@ -8,15 +8,20 @@
   "scripts": {
     "start": "electron .",
     "build:win": "electron-builder --win --x64 --publish never",
-    "build:linux": "electron-builder --linux --x64 --publish never"
+    "build:linux": "electron-builder --linux --x64 --publish never",
+     "build:ubuntu": "electron-builder --linux deb --x64 --publish never"
   },
   "build": {
-    "appId": "azerothlegends.wowclient",
+    "appId": "azerothlegends.azerothforge",
     "win": {
       "target": [
         "portable"
       ],
       "icon": "assets/icon.png"
+    },
+    "linux": {
+      "icon": "assets/icon.png",
+      "category": "Utility"
     },
     "directories": {
       "buildResources": "build"
