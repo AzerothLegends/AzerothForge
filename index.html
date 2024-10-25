@@ -11,8 +11,7 @@
   </style>
 </head>
 <body>
-    <div class="drag-region" id="dragRegion"></div>
-    
+  <div class="drag-region" id="dragRegion"></div>
     <div class="titlebar-buttons">
       <div id="minimizeButton" class="titlebar-button"></div>
       <div id="closeButton" class="titlebar-button"></div>
@@ -22,16 +21,18 @@
   <div id="connection-form">
     <div id="logo"></div>
     <h2 style="color: white;">AzerothForge</h2>
-    
-    <div id="host-container"><div id="host-label">Host:</div><input id="host" placeholder="Host" /></div><br>
+    <div style="float: left; margin-left: 2px;" class="split-line"><div id="host-container"><div id="host-label">Host:</div><input style="width: 68%;" id="host" placeholder="Host" /></div></div>
+    <div style="float: right;margin-right: 2px;" class="split-line"><div id="host-container"><div id="host-label">Port:</div><input style="width: 68.1%;" id="port" placeholder="3306" /></div><br></div>   
+    <br><br><br>
     <div id="host-container"><div id="host-label">Usuário:</div><input id="username" placeholder="Username" /></div><br>
     <div id="host-container"><div id="host-label">Senha:</div><input id="password" type="password" placeholder="Password" /></div><br>
-    <div id="host-container"><div id="host-label">World DB:</div><input id="database" placeholder="acore_world" /></div><br>
+    <div id="host-container"><div id="host-label">Auth DB:</div><input id="database2" placeholder="acore_auth" /></div><br>
+    <div id="host-container"><div id="host-label">World DB:</div><input id="database1" placeholder="acore_world" /></div><br>
     
     <div id="connect-btn">Conectar</div>
     <div id="db-error-message" class="error-db-message bg-red">Não foi possível conectar ao banco de dados!</div>
   </div>
-  <!-- Inputs para criação de NPC -->
+  <!-- Sidebar -->
    <div class="sidebar hidden" id="sidebar">
     <div class="sidebar-links">
       <div id="logo" style="margin-top: 20px;"></div><br>

@@ -132,17 +132,18 @@ ipcMain.on('connect-db', async (event, config) => {
   console.log('Evento "connect-db" recebido com as credenciais:', config);
 
   try {
-    const connected = await connectToDB(config);
-    if (connected) {
-      console.log('Conectado ao banco de dados com sucesso.');
-      store.set('credentials', config);
-      event.reply('db-connected');
+    const connections = await connectToDB(config); // Obter as conexões
+    if (connections) {
+      console.log('Conectado aos bancos de dados com sucesso.');
+      
+      store.set('credentials', config); // Salvar as configurações no store
+      event.reply('db-connected'); // Enviar resposta de sucesso
     } else {
-      console.error('123Erro ao conectar ao banco de dados.');
-      event.reply('db-connected-false');
+      console.error('Erro ao conectar aos bancos de dados.');
+      event.reply('db-connected-false'); // Enviar resposta de falha
     }
   } catch (error) {
-    console.error('Erro durante a conexão:', error);
+    console.error('Erro durante a conexão:', error.message);
   }
 });
 

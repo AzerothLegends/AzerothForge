@@ -21,9 +21,11 @@ async function carregarCredenciais() {
   if (cachedCredentials) {
     console.log('Credenciais encontradas:', cachedCredentials);
     document.getElementById('host').value = cachedCredentials.host;
+    document.getElementById('port').value = cachedCredentials.port;
     document.getElementById('username').value = cachedCredentials.username;
     document.getElementById('password').value = cachedCredentials.password;
-    document.getElementById('database').value = cachedCredentials.database;
+    document.getElementById('database1').value = cachedCredentials.database1;
+    document.getElementById('database2').value = cachedCredentials.database2;
   } else {
     console.log('Nenhuma credencial encontrada no cache.');
   }
@@ -50,12 +52,14 @@ window.onload = async () => {
 // Conectar ao banco de dados
 connectBtn.addEventListener('click', () => {
   const host = document.getElementById('host').value;
+  const port = document.getElementById('port').value;
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
-  const database = document.getElementById('database').value;
+  const database1 = document.getElementById('database1').value;
+  const database2 = document.getElementById('database2').value;
 
-  console.log('Enviando credenciais para conexão...', { host, username, password, database });
-  window.electron.send('connect-db', { host, username, password, database });
+  console.log('Enviando credenciais para conexão...', { host, port, username, password, database1, database2 });
+  window.electron.send('connect-db', { host, port, username, password, database1, database2 });
 });
 
 // Exibir o formulário de NPC após conexão bem-sucedida e ocultar o formulário de conexão

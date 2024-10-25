@@ -1,20 +1,39 @@
 const mysql = require('mysql2/promise');
-let connection;
+let connections;
 
-async function connectToDB({ host, username, password, database }) {
+async function connectToDB({ host, port, username, password, database1, database2 }) {
   try {
-    connection = await mysql.createConnection({ host, user: username, password, database });
-    console.log('Conectado ao banco de dados com sucesso!');
-    return true;
+    // Conectar aos dois bancos de dados
+    const [primary, secondary] = await Promise.all([
+      mysql.createConnection({ host, port, user: username, password, database: database1 }),
+      mysql.createConnection({ host, port, user: username, password, database: database2 }),
+    ]);
+
+    console.log('Conectado aos dois bancos de dados com sucesso!');
+
+    // Armazenar as conexões no objeto connections
+    connections = { primary, secondary };
+
+    return connections;
   } catch (error) {
-    console.error('Erro na conexão ao banco de dados:', error.message);
-    return false;
+    console.error('Erro ao conectar aos bancos de dados:', error.message);
+    return null;
   }
 }
 
+// Função para fechar todas as conexões
+//async function closeConnections() {
+//  try {
+//    await Promise.all(Object.values(connections).map(conn => conn.end()));
+//    console.log('Todas as conexões foram encerradas.');
+//  } catch (error) {
+//    console.error('Erro ao encerrar conexões:', error.message);
+// }
+//}
+
 async function checkEntry(entry) {
   try {
-    const [rows] = await connection.execute('SELECT 1 FROM creature_template WHERE entry = ?', [entry]);
+    const [rows] = await connections.primary.execute('SELECT 1 FROM creature_template WHERE entry = ?', [entry]);
     return rows.length > 0;
   } catch (error) {
     console.error('Erro ao verificar entry:', error.message);
@@ -32,7 +51,7 @@ async function createNPC(npcData) {
         npcData.entry, npcData.name, npcData.subname, npcData.faction,
         npcData.minlevel, npcData.maxlevel, npcData.npcflag, npcData.VerifiedBuild
       ];
-      await connection.execute(npcQuery, npcValues);
+      await connections.primary.execute(npcQuery, npcValues);
   
       const modelQuery = `
         INSERT INTO creature_template_model (CreatureID, Idx, CreatureDisplayID, DisplayScale, Probability, VerifiedBuild)
@@ -43,7 +62,7 @@ async function createNPC(npcData) {
         npcData.modelData.CreatureDisplayID, npcData.modelData.DisplayScale,
         npcData.modelData.Probability, npcData.modelData.VerifiedBuild
       ];
-      await connection.execute(modelQuery, modelValues);
+      await connections.primary.execute(modelQuery, modelValues);
   
       console.log('NPC e modelo inseridos com sucesso!');
     } catch (error) {
@@ -90,7 +109,7 @@ async function searchNPCs({ entry, name, subname }) {
     console.log('Consulta SQL gerada:', query);
     console.log('Parâmetros:', params);
 
-    const [rows] = await connection.execute(query, params);
+    const [rows] = await connections.primary.execute(query, params);
     return rows;
   } catch (error) {
     console.error('Erro ao buscar NPCs:', error.message);
@@ -105,7 +124,7 @@ async function updateNPC({ entry, name, subname, minlevel, maxlevel, faction, np
       SET name = ?, subname = ?, minlevel = ?, maxlevel = ?, faction = ?, npcflag = ?
       WHERE entry = ?
     `;
-    await connection.execute(query, [name, subname, minlevel, maxlevel, faction, npcflag, entry]);
+    await connections.primary.execute(query, [name, subname, minlevel, maxlevel, faction, npcflag, entry]);
     console.log(`NPC ${entry} atualizado com sucesso!`);
     const modelquery = `
   UPDATE creature_template_model 
@@ -114,7 +133,7 @@ async function updateNPC({ entry, name, subname, minlevel, maxlevel, faction, np
   SET CreatureDisplayID = ?, DisplayScale = ?, Probability = ?
   WHERE creature_template.entry = ?
     `;
-    await connection.execute(modelquery, [CreatureDisplayID, DisplayScale, Probability, CreatureID]);
+    await connections.primary.execute(modelquery, [CreatureDisplayID, DisplayScale, Probability, CreatureID]);
     console.log(`NPC atualizado com sucesso!`);
   } catch (error) {
     console.error('Erro ao atualizar NPC:', error.message);

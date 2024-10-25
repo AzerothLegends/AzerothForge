@@ -15,6 +15,9 @@ input {text-align: center;
     width: 69%;
     height: 20px;
 }
+.split-line {
+    width: 49%;
+}
 #host {
     float: right;
 }
@@ -115,10 +118,10 @@ button:disabled { background-color: #ccc; }
   width: 100px;
   height: 100px;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 30px;
 }
 #connection-form {
-    width: 30%;
+    width: 35%;
     height: 80vh;
     margin: 70px auto;
     background-color:rgba(30, 30, 47, 0.5);
@@ -132,11 +135,14 @@ button:disabled { background-color: #ccc; }
     padding-top: 10px; 
     padding-bottom: 10px;
     text-align: center;
-    background-color: #28a745; 
+    background-color:#af4c4c;
     color: white; 
     border: none; 
     cursor: pointer;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
+#connect-btn:hover {box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;}
 h2 {text-align: center;}
 .titlebar-buttons {
 display: flex;
@@ -157,14 +163,20 @@ border-radius: 7px;;
 }
 .drag-region {
 -webkit-app-region: drag;
+/*background-color:rgba(0, 0, 0, 0.4);
+border: 1px solid rgb(24, 24, 24);
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
 position: absolute;
 top: 0;
-left: 0;
-width: 91%;
+left: 10%;
+width: 80%;
 height: 33px; 
 cursor: grab; 
 z-index: -1; 
-background: rgba(0, 0, 0, 0); 
+border-bottom-left-radius:6px ;
+border-bottom-right-radius:6px ;
+border-top: 0;
+margin: 0 auto;
 }
 .credits {
 text-align: center;
