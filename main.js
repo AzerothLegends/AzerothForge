@@ -5,7 +5,7 @@ const http = require('https');
 
 // Define a versão atual
 const appVersion = '1.0.0';
-const currentVersion = 1; // Versão para o verificador de atualização
+const currentVersion = 1; // Numero da versão
 const updateFilePath = path.join(app.getPath('userData'), 'update.txt');
 
 
@@ -180,7 +180,7 @@ ipcMain.on('create-npc', async (event, npcData) => {
 ipcMain.handle('buscar-npcs', async (event, filtros) => {
   try {
     const result = await searchNPCs(filtros);
-    console.log('NPCs encontrados:', result); // Para confirmar se a consulta está sendo feita
+    console.log('NPCs encontrados:', result);
     return result;
   } catch (error) {
     console.error('Erro ao buscar NPCs:', error);
