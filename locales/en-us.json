@@ -1,0 +1,46 @@
+{
+  "BTN": {
+    "CLOSE": "Close",
+    "SAVE": "Save"
+ },
+  "CONNECTION": {
+    "PANNEL": {
+      "HOST": "Host:",
+      "PORT": "Port:",
+      "USERNAME": "Username:",
+      "PASSWORD": "Password:",
+      "AUTH_DB": "Auth DB",
+      "WORLD_DB": "World DB",
+      "CONNECT_BTN": "Connect"
+    }
+  },
+  "SIDEBAR": {
+    "HOME": "Home",
+    "GM_CONFIG": "Admin Settings",
+    "NPC_OPTIONS": "NPC Options",
+    "CREATE_NPC": "Create NPC",
+    "EDIT_NPC": "Edit NPC",
+    "QUESTS": "Quests",
+    "CREATE_QUEST": "Create Quest",
+    "QUEST_EDITOR": "Edit Quest"
+  },
+  "DASHBOARD": {
+    "WELCOME_TEXT_0": "Welcome to AzerothForge",
+    "WELCOME_TEXT_1": "You can always find the latest version of AzerothForge on the ",
+    "WELCOME_TEXT_2": "releases page.",
+    "WELCOME_TEXT_3": "You can report any bugs or suggestions using the ",
+    "WELCOME_TEXT_4": "official repository.",
+    "WELCOME_TEXT_5": "If you enjoyed AzerothForge, don't forget to give us a ⭐ on GitHub!",
+    "WELCOME_TEXT_6": "This is free and open-source software being developed in my spare time, but if you'd like, you can support me with ",
+    "WELCOME_TEXT_7": "a donation.",
+    "WELCOME_TEXT_8": "I hope you enjoy using this software and don't forget to contribute to the community by sharing your code.",
+    "APP_VERSION": "AzerothForge Version:",
+    "NODE_VERSION": "Node Version:"
+  },
+  "NPC_FUNCTIONS": {
+  "CREATE_NPC_TITLE": "Create NPC",
+  "MODEL_CONFIG": "Model Settings",
+  "CREATE_NPC_BTN": "Create NPC",
+  "CREATE_NPC_MSG": "NPC created successfully!"
+}
+}

@@ -213,6 +213,15 @@ background-position: center;
 background-color:rgba(255, 255, 255, 0.2);
 background-repeat: no-repeat;
 }
+#language-selector {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
 #main-container {
 text-align: center;
 margin-top: 70px;
@@ -246,6 +255,17 @@ color: white;
     margin-top: auto; /* Empurra o footer para a parte inferior da sidebar */
   }
 /* Estilos simples para o modal */
+#realmlist-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 2px solid #000;
+    z-index: 1000;
+  }
 #modal-editar {
     display: none;
     position: fixed;

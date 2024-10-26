@@ -16,20 +16,23 @@
       <div id="minimizeButton" class="titlebar-button"></div>
       <div id="closeButton" class="titlebar-button"></div>
     </div>
-    
+    <select id="language-selector">
+      <option value="pt-br">(BR)</option>
+      <option value="en-us">(US)</option>
+    </select>
+
   <!-- Inputs de conexão -->
   <div id="connection-form">
     <div id="logo"></div>
     <h2 style="color: white;">AzerothForge</h2>
-    <div style="float: left; margin-left: 2px;" class="split-line"><div id="host-container"><div id="host-label">Host:</div><input style="width: 68%;" id="host" placeholder="Host" /></div></div>
-    <div style="float: right;margin-right: 2px;" class="split-line"><div id="host-container"><div id="host-label">Port:</div><input style="width: 68.1%;" id="port" placeholder="3306" /></div><br></div>   
+    <div style="float: left; margin-left: 2px;" class="split-line"><div id="host-container"><div id="host-label" data-translate="CONNECTION.PANNEL.HOST"></div><input style="width: 68%;" id="host" placeholder="Host" /></div></div>
+    <div style="float: right;margin-right: 2px;" class="split-line"><div id="host-container"><div id="host-label" data-translate="CONNECTION.PANNEL.PORT">Port:</div><input style="width: 68.1%;" id="port" placeholder="3306" /></div><br></div>   
     <br><br><br>
-    <div id="host-container"><div id="host-label">Usuário:</div><input id="username" placeholder="Username" /></div><br>
-    <div id="host-container"><div id="host-label">Senha:</div><input id="password" type="password" placeholder="Password" /></div><br>
-    <div id="host-container"><div id="host-label">Auth DB:</div><input id="database2" placeholder="acore_auth" /></div><br>
-    <div id="host-container"><div id="host-label">World DB:</div><input id="database1" placeholder="acore_world" /></div><br>
-    
-    <div id="connect-btn">Conectar</div>
+    <div id="host-container"><div id="host-label" data-translate="CONNECTION.PANNEL.USERNAME"></div><input id="username" placeholder="Username" /></div><br>
+    <div id="host-container"><div id="host-label" data-translate="CONNECTION.PANNEL.PASSWORD"></div><input id="password" type="password" placeholder="Password" /></div><br>
+    <div id="host-container"><div id="host-label" data-translate="CONNECTION.PANNEL.AUTH_DB"></div><input id="database2" placeholder="acore_auth" /></div><br>
+    <div id="host-container"><div id="host-label" data-translate="CONNECTION.PANNEL.WORLD_DB"></div><input id="database1" placeholder="acore_world" /></div><br>
+    <div id="connect-btn" data-translate="CONNECTION.PANNEL.CONNECT_BTN"></div>
     <div id="db-error-message" class="error-db-message bg-red">Não foi possível conectar ao banco de dados!</div>
   </div>
   <!-- Sidebar -->
@@ -37,16 +40,17 @@
     <div class="sidebar-links">
       <div id="logo" style="margin-top: 20px;"></div><br>
       <div id="update-message" class="bg-green hidden"></div><br>
-      <div id="home-session-dropdown" class="dropdown-toggle">Home</div><div class="dropdown"></div>
-      <div class="dropdown-toggle">NPC</div>
+      <div id="home-session-dropdown" class="dropdown-toggle" data-translate="SIDEBAR.HOME"></div><div class="dropdown"></div>
+      <div id="realmlist-session-dropdown" class="dropdown-toggle" data-translate="SIDEBAR.GM_CONFIG"></div><div class="dropdown"></div>
+      <div class="dropdown-toggle" data-translate="SIDEBAR.NPC_OPTIONS"></div>
       <div class="dropdown">
-        <div id="create-npc-dropdown" class="dropdown-pages">Criar NPC</div>
-        <div id="buscar-npc-dropdown" class="dropdown-pages" href="#">Buscar NPCs</div>
+        <div id="create-npc-dropdown" class="dropdown-pages" data-translate="SIDEBAR.CREATE_NPC"></div>
+        <div id="buscar-npc-dropdown" class="dropdown-pages" data-translate="SIDEBAR.EDIT_NPC"></div>
       </div>
-      <div class="dropdown-toggle">QUESTS</div>
+      <div class="dropdown-toggle" data-translate="SIDEBAR.QUESTS"></div>
       <div class="dropdown">
-        <div class="dropdown-pages">Criar Quests</div>
-        <div class="dropdown-pages">Buscar Quests</div>
+        <div class="dropdown-pages" data-translate="SIDEBAR.CREATE_QUEST"></div>
+        <div class="dropdown-pages" data-translate="SIDEBAR.QUEST_EDITOR"></div>
       </div>
   </div>
       <footer class="footer">
@@ -56,34 +60,59 @@
   <!-- Inputs para criação de NPC -->
   <div id="main-container">
     <div id="home-session" class="hidden"><br><br><br>
-      <div id=""><span>Bem-vindo ao AzerothForge</span><br><br>
-        <span>Você sempre pode encontrar a versão mais recente do AzerothForge na <a href="#" id="release-link">página de lançamentos.</a></span><br><br>
-        <span>Você pode reportar quaisquer bugs ou sugestões usando o <a href="#" id="repo-link">repositório oficial.</a><br><br> Se você gostou do AzerothForge, não esqueça de nos dar uma ⭐ no GitHub!</span><br><br>
-        <span>O AzerothForge é um software gratuito e de código aberto que está sendo desenvolvido em meu tempo livre, mas caso queira, você pode me apoiar com <a href="#" id="6c62058ab695b3d3a521fc9e92c6ee01">uma doação</a></span><span style="color: red;"> ❤</span><br><br>
-        <span>Espero que você goste de usar este software e não se esqueça de contribuir com a comunidade compartilhando seu código</span><br>
+      <div id=""><span data-translate="DASHBOARD.WELCOME_TEXT_0"></span><br><br>
+        <span data-translate="DASHBOARD.WELCOME_TEXT_1"></span><a href="#" id="release-link" data-translate="DASHBOARD.WELCOME_TEXT_2"></a><br><br>
+        <span data-translate="DASHBOARD.WELCOME_TEXT_3"></span><a href="#" id="repo-link" data-translate="DASHBOARD.WELCOME_TEXT_4"></a><br><br>
+        <span data-translate="DASHBOARD.WELCOME_TEXT_5"></span><br><br> 
+        <span data-translate="DASHBOARD.WELCOME_TEXT_6"></span><a href="#" id="6c62058ab695b3d3a521fc9e92c6ee01" data-translate="DASHBOARD.WELCOME_TEXT_7"></a><span style="color: red;"> ❤</span><br><br>
+        <span data-translate="DASHBOARD.WELCOME_TEXT_8"></span><br>
         <div class="modal-overlay" id="modal-overlay"></div>
         <div id="f5c986942e09682bb4866bda70730ebc">
             <h2 id="F800B204"></h2>
             <h3 id="D41D8CD9"></h3>
             <div id="A34095e673f78539ea65fe2535b3b2620"></div>
-            <button id="close-modal">Fechar</button>
+            <button id="close-modal" data-translate="BTN.CLOSE"></button>
         </div>
         <table class="transparent-table" style="margin-top: 60px;">
           <tbody>
-              <tr>
-                  <td>Versão AzerothForge:</td>
-                  <td id="app-version">Carregando...</td>
-              </tr>
-              <tr>
-                  <td>Versão Node:</td>
-                  <td>20.12.1</td>
-              </tr>
+              <tr><td data-translate="DASHBOARD.APP_VERSION"></td><td id="app-version">Carregando...</td></tr>
+              <tr><td data-translate="DASHBOARD.NODE_VERSION"></td><td>20.12.1</td></tr>
           </tbody>
       </table>
     </div></div>
+    <div id="editar-realm-session" class="hidden">
+      <h1>Tabela Realmlist</h1><br>
+      <button id="create-realm-btn">Criar Novo Realm</button>
+      <table id="realmlist-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Endereço</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    
+      <div id="realmlist-modal">
+        <h2>Editar Realm</h2>
+        <input type="hidden" id="realm-id" />
+        <div>
+          <label>Nome:</label>
+          <input type="text" id="realm-name" />
+        </div>
+        <div>
+          <label>Endereço:</label>
+          <input type="text" id="realm-address" />
+        </div>
+        <button id="save-realm-btn" data-translate="BTN.SAVE"></button>
+        <button id="close-modal-btn" data-translate="BTN.CLOSE"></button>
+      </div>
+    </div>
+
     <!-- Sessão para criação de NPC -->
     <div id="create-npc-session" class="hidden">
-        <h2>Criar NPC</h2>
+        <h2 data-translate="NPC_FUNCTIONS.CREATE_NPC_TITLE"></h2>
         <input class="npc-input" id="entry" placeholder="Entry" />
         <input class="npc-input" id="name" placeholder="Name" />
         <input class="npc-input" id="subname" placeholder="Subname" />
@@ -91,19 +120,19 @@
         <input class="npc-input" id="minlevel" placeholder="Min Level" type="number" />
         <input class="npc-input" id="maxlevel" placeholder="Max Level" type="number" />
         <input class="npc-input" id="npcflag" placeholder="NPC Flag" type="number" />
-        <h3>Configurações de Modelo</h3>
+        <h3 data-translate="NPC_FUNCTIONS.MODEL_CONFIG"></h3>
 
         <input class="npc-input" id="creature-display-id" placeholder="CreatureDisplayID" type="number" />
         <input class="npc-input" id="display-scale" placeholder="DisplayScale (Padrão: 1)" type="number" value="1" />
         <input class="npc-input" id="probability" placeholder="Probability (Padrão: 1)" type="number" value="1" />
-        <button id="create-npc-btn" disabled>Criar NPC</button>
+        <button id="create-npc-btn" disabled data-translate="NPC_FUNCTIONS.CREATE_NPC_BTN"></button>
         <div id="entry-status-container"><span id="entry-status"></span></div>
         </div>
-        <div id="success-message" class="message bg-green">NPC criado com sucesso!</div>
+        <div id="success-message" class="message bg-green" data-translate="NPC_FUNCTIONS.CREATE_NPC_MSG"></div>
 
     <!-- Sessão para busca de NPC -->       
     <div id="success-edit-npc-message" class="message bg-green">NPC editado com sucesso!</div>
-    <div id="buscar-npc-session" class="hidden">
+  <div id="buscar-npc-session" class="hidden">
       <div id="search-bar-container">
       <input type="text" id="entry-input" placeholder="Entry" />
       <input type="text" id="name-input" placeholder="Nome" />
@@ -143,8 +172,8 @@
         <div id="modal-input-container"><div id="modal-input-label">Probability:</div><input type="text" id="npc-Probability" placeholder="Probability" /></div>
       </section>
       <br><br>
-        <button id="salvar-edicao-btn">Salvar</button>
-        <button id="fechar-modal-btn">Fechar</button>
+        <button id="salvar-edicao-btn" data-translate="BTN.SAVE"></button>
+        <button id="fechar-modal-btn" data-translate="BTN.CLOSE"></button>
       </div>
     </div>
   </div>

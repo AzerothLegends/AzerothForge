@@ -23,7 +23,7 @@ let store;
   }
 })();
 
-const { connectToDB, checkEntry, createNPC, searchNPCs, updateNPC, updateNPCModel } = require('./db');
+const { connectToDB, checkEntry, createRealm, getRealmlist, updateRealm, createNPC, searchNPCs, updateNPC, updateNPCModel } = require('./db');
 let mainWindow;
 
 //Renderiza a Janela
@@ -48,6 +48,12 @@ app.whenReady().then(() => {
       console.log('Enviando versão:', appVersion); // LOG para conferir
       mainWindow.webContents.send('app-version', appVersion);
   });
+// Manipulador IPC para carregar as traduções
+ipcMain.handle('load-translations', async (_, lang = 'pt-br') => {
+  const filePath = path.join(__dirname, 'locales', `${lang}.json`);
+  const data = await fs.promises.readFile(filePath, 'utf8');
+  return JSON.parse(data);
+});
   // Função para baixar o arquivo de versão
   async function downloadFile(url, dest) {
     return new Promise((resolve, reject) => {
@@ -197,4 +203,21 @@ ipcMain.handle('editar-npc', async (event, npc) => {
     console.error('Erro ao atualizar NPC:', error);
     return false;
   }
+});
+
+// Buscar dados da realmlist e enviar para o renderer
+ipcMain.handle('create-realm', async () => await createRealm());
+ipcMain.handle('get-realmlist', async () => {
+  try {
+    const realms = await getRealmlist();
+    return realms;
+  } catch (error) {
+    console.error('Erro ao buscar realmlist:', error.message);
+    return [];
+  }
+});
+
+// Handler para atualizar um realm
+ipcMain.handle('update-realm', async (event, realm) => {
+  return await updateRealm(realm);
 });

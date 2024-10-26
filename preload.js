@@ -1,6 +1,7 @@
 const { contextBridge, ipcRenderer, shell } = require('electron');
 
 contextBridge.exposeInMainWorld('electron', {
+  loadTranslations: (lang) => ipcRenderer.invoke('load-translations', lang),
   shell: {openExternal: (url) => shell.openExternal(url)},
   onAppVersion: (callback) => {
     console.log('Callback registrado para versão do app'); // LOG de conferência
@@ -15,5 +16,15 @@ contextBridge.exposeInMainWorld('electron', {
   send: (channel, data) => ipcRenderer.send(channel, data),
   invoke: (channel, data) => ipcRenderer.invoke(channel, data),
   on: (channel, func) =>
-    ipcRenderer.on(channel, (event, ...args) => func(...args))
+    ipcRenderer.on(channel, (event, ...args) => func(...args)),
+    // Comunicação para o Realmlist
+    getRealmlist: () => ipcRenderer.invoke('get-realmlist'),  // Buscar lista
+    createRealm: () => ipcRenderer.invoke('create-realm'),
+    updateRealm: (realm) => ipcRenderer.invoke('update-realm', realm),  // Atualizar realm
+  
+    send: (channel, data) => ipcRenderer.send(channel, data),
+    invoke: (channel, data) => ipcRenderer.invoke(channel, data),
+  
+    on: (channel, func) =>
+      ipcRenderer.on(channel, (event, ...args) => func(...args))
 });

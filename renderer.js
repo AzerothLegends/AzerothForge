@@ -14,6 +14,28 @@ const donateModal = document.getElementById('f5c986942e09682bb4866bda70730ebc');
 const modalOverlay = document.getElementById('modal-overlay');
 const closeModalButton = document.getElementById('close-modal');
 
+// Referências aos elementos do RealmList
+const tableBody = document.querySelector('#realmlist-table tbody');
+const modal = document.querySelector('#realmlist-modal');
+const closeModalBtn = document.querySelector('#close-modal-btn');
+const saveRealmBtn = document.querySelector('#save-realm-btn');
+const realmIdInput = document.querySelector('#realm-id');
+const realmNameInput = document.querySelector('#realm-name');
+const realmAddressInput = document.querySelector('#realm-address');
+const createRealmBtn = document.querySelector('#create-realm-btn');
+// Fechar o modal
+closeModalBtn.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
+
+// Abrir o modal para edição
+function openModal(realm) {
+  realmIdInput.value = realm.id;
+  realmNameInput.value = realm.name;
+  realmAddressInput.value = realm.address;
+  modal.style.display = 'block';
+}
+
 // Função para carregar credenciais do cache
 async function carregarCredenciais() {
   console.log('Carregando credenciais do cache...');
@@ -34,7 +56,8 @@ async function carregarCredenciais() {
 // Evento onload para verificar atualizações e carregar credenciais
 window.onload = async () => {
   console.log('DOM carregado'); // Verificar se o DOM está sendo carregado
-
+  const realms = await window.electron.getRealmlist();
+  preencherTabela(realms);
   window.electron.onAppVersion((version) => {
       console.log('Versão recebida:', version); // LOG de conferência
       document.getElementById('app-version').innerText = version;
@@ -49,6 +72,30 @@ window.onload = async () => {
   }
 };
 
+// Função auxiliar para acessar chaves aninhadas
+function getNestedValue(obj, key) {
+  return key.split('.').reduce((acc, part) => acc && acc[part], obj);
+}
+
+async function applyTranslations(lang = 'pt-br') {
+  const translations = await window.electron.loadTranslations(lang);
+
+  const elements = document.querySelectorAll('[data-translate]');
+  elements.forEach((el) => {
+    const key = el.getAttribute('data-translate');
+    const translatedText = getNestedValue(translations, key);
+    if (translatedText) {
+      el.innerHTML = translatedText;
+    }
+  });
+}
+// Adiciona evento para mudança de idioma
+document.getElementById('language-selector').addEventListener('change', (event) => {
+  const selectedLang = event.target.value;
+  applyTranslations(selectedLang); // Reaplica as traduções com o novo idioma
+});
+
+window.addEventListener('DOMContentLoaded', () => applyTranslations());
 // Conectar ao banco de dados
 connectBtn.addEventListener('click', () => {
   const host = document.getElementById('host').value;
@@ -61,7 +108,6 @@ connectBtn.addEventListener('click', () => {
   console.log('Enviando credenciais para conexão...', { host, port, username, password, database1, database2 });
   window.electron.send('connect-db', { host, port, username, password, database1, database2 });
 });
-
 // Exibir o formulário de NPC após conexão bem-sucedida e ocultar o formulário de conexão
 window.electron.on('db-connected', () => {
   console.log('Conexão ao banco de dados bem-sucedida!');
@@ -69,6 +115,7 @@ window.electron.on('db-connected', () => {
   maincontainer.classList.remove('hidden');  
   sidebar.classList.remove('hidden');
   homesession.classList.remove('hidden'); 
+  
 });
 
 window.electron.on('db-connected-false', () => {
@@ -282,4 +329,52 @@ document.getElementById('release-link').addEventListener('click', (event) => {
 document.getElementById('repo-link').addEventListener('click', (event) => {
   event.preventDefault(); // Impede o comportamento padrão do link
   window.electron.shell.openExternal('https://github.com/AzerothLegends/AzerothForge');
+});
+
+// Preencher a tabela com os dados da realmlist
+function preencherTabela(realms) {
+  tableBody.innerHTML = ''; // Limpar a tabela
+
+  realms.forEach((realm) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${realm.id}</td>
+      <td>${realm.name}</td>
+      <td>${realm.address}</td>
+    `;
+    row.addEventListener('click', () => openModal(realm));
+    tableBody.appendChild(row);
+  });
+}
+
+// Enviar dados editados para o processo principal
+saveRealmBtn.addEventListener('click', async () => {
+  const updatedRealm = {
+    id: realmIdInput.value,
+    name: realmNameInput.value,
+    address: realmAddressInput.value,
+  };
+
+  const success = await window.electron.invoke('update-realm', updatedRealm);
+  if (success) {
+    modal.style.display = 'none'; // Fechar o modal após salvar
+    const realms = await window.electron.invoke('get-realmlist'); // Recarregar dados atualizados
+    preencherTabela(realms);
+  } else {
+    console.error('Erro ao atualizar o realm');
+  }
+});
+createRealmBtn.addEventListener('click', async () => {
+  console.log('Botão "Criar Novo Realm" clicado');  // Log de clique
+
+  const success = await window.electron.createRealm();
+  console.log(`Resultado da criação: ${success}`);  // Log de resultado
+
+  if (success) {
+    const realms = await window.electron.getRealmlist();
+    console.log('Realms atualizados:', realms);  // Log de novos realms
+    preencherTabela(realms);
+  } else {
+    console.error('Erro ao criar novo realm');
+  }
 });

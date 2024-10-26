@@ -31,6 +31,79 @@ async function connectToDB({ host, port, username, password, database1, database
 // }
 //}
 
+// Função para buscar dados da tabela realmlist
+async function createRealm() {
+  try {
+    // Buscar o último ID e a última porta inseridos
+    const [rows] = await connections.secondary.execute(
+      'SELECT id, port FROM realmlist ORDER BY id DESC LIMIT 1'
+    );
+
+    const lastRealm = rows[0];
+    const nextId = lastRealm ? lastRealm.id + 1 : 1;
+    const nextPort = lastRealm ? lastRealm.port + 1 : 8085;
+
+    // Inicializar o nome do realm e verificar a duplicidade
+    let baseName = 'Novo Realm';
+    let realmName = baseName;
+    let realmExists = true;
+    let counter = 1;
+
+    // Verificar se o realm já existe e incrementar o nome
+    while (realmExists) {
+      const [existing] = await connections.secondary.execute(
+        'SELECT COUNT(*) as count FROM realmlist WHERE name = ?',
+        [realmName]
+      );
+
+      realmExists = existing[0].count > 0;
+
+      if (realmExists) {
+        counter++;
+        realmName = `${baseName} ${counter}`;
+      }
+    }
+
+    // Inserir o novo realm
+    await connections.secondary.execute(
+      `INSERT INTO realmlist 
+      (id, name, address, localAddress, localSubnetMask, port, icon, flag, timezone, 
+       allowedSecurityLevel, population, gamebuild) 
+      VALUES (?, ?, '127.0.0.1', '127.0.0.1', '255.255.255.0', ?, 0, 0, 1, 1, 0, 12340)`,
+      [nextId, realmName, nextPort]
+    );
+
+    console.log(`Novo realm criado com ID ${nextId} e porta ${nextPort}, nome: ${realmName}`);
+    return true;
+  } catch (error) {
+    console.error('Erro ao criar o novo realm:', error.message);
+    return false;
+  }
+}
+
+async function getRealmlist() {
+  try {
+    const [rows] = await connections.secondary.execute('SELECT id, name, address FROM realmlist');
+    return rows;
+  } catch (error) {
+    console.error('Erro ao buscar dados da tabela realmlist:', error.message);
+    return [];
+  }
+}
+async function updateRealm(realm) {
+  try {
+    await connections.secondary.execute(
+      'UPDATE realmlist SET name = ?, address = ? WHERE id = ?',
+      [realm.name, realm.address, realm.id]
+    );
+    console.log(`Realm ${realm.id} atualizado com sucesso!`);
+    return true;
+  } catch (error) {
+    console.error('Erro ao atualizar o realm:', error.message);
+    return false;
+  }
+}
+
 async function checkEntry(entry) {
   try {
     const [rows] = await connections.primary.execute('SELECT 1 FROM creature_template WHERE entry = ?', [entry]);
@@ -141,5 +214,5 @@ async function updateNPC({ entry, name, subname, minlevel, maxlevel, faction, np
   }
 }
 
-  module.exports = { connectToDB, checkEntry, createNPC, searchNPCs, updateNPC };
+  module.exports = { connectToDB, createRealm, getRealmlist, updateRealm, checkEntry, createNPC, searchNPCs, updateNPC };
   
